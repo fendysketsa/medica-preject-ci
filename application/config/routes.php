@@ -61,6 +61,9 @@ $route['md/reason/option'] = 'ReasonController/getOption';
 
 $route['md/access/profile'] = 'AccessController/profile';
 
-$route['default_controller'] = 'auth';
+$route['forgot-password'] = 'Auth/forgot';
+$route['send/forgot-password'] = 'Auth/sendResetPassword';
+
+$route['default_controller'] = 'Auth/index';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

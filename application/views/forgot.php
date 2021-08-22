@@ -24,7 +24,7 @@
     }
 
     input[id=password] {
-        padding-right: 53px !important;
+        padding-right: 35px !important;
     }
 
     .icon-eyes {
@@ -38,12 +38,12 @@
     }
 </style>
 
-<form method="post" id="form-login" class="needs-validation" novalidate>
+<form method="post" id="form-forgot" class="needs-validation" novalidate>
 
     <div class="login-right">
         <div class="login-right-wrap">
             <h1>APOTEK BERSAMA</h1>
-            <p class="account-subtitle">Silakan login dengan menggunakan email dan password anda.</p>
+            <p class="account-subtitle">Masukkan email Anda untuk mendapatkan kode pemulihan!</p>
 
             <div class="form-group input-group">
                 <label class="form-control-label" for="email">Email: </label>
@@ -51,23 +51,9 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"><em class="fas fa-envelope"></em></span>
                     </div>
-                    <input type="email" id="email" autocomplete="off" form="form-login" class="form-control form-control-sm" placeholder="Email" name="email" required autofocus>
+                    <input type="email" id="email" autocomplete="off" form="form-forgot" class="form-control form-control-sm" placeholder="Email" name="email" required autofocus>
                     <div class="invalid-feedback">
                         Please type email.
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group input-group">
-                <label class="form-control-label" for="password">Password: </label>
-                <div class="pass-group input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><em class="fas fa-lock"></em></span>
-                    </div>
-                    <input type="password" id="password" name="password" autocomplete="off" form="form-login" class="form-control form-control-sm pass-input" placeholder="Password" required>
-                    <span class="fas fa-eye icon-eyes toggle-password"></span>
-                    <div class="invalid-feedback">
-                        Please type password.
                     </div>
                 </div>
             </div>
@@ -80,55 +66,20 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-6">
-                        <div class="custom-control custom-checkbox">
-                            <input id="remember-me" type="checkbox" class="custom-control-input">
-                            <label class="custom-control-label" for="remember-me">Remember me</label>
-                        </div>
-                    </div>
-                    <div class="col-6 text-right">
-                        <a class="forgot-link" href="<?php echo site_url('forgot-password') ?>">Lupa Password ?</a>
-                    </div>
-                </div>
+            <div class="form-group mb-0">
+                <button class="btn btn-md btn-block btn-primary" form="form-forgot" type="submit"><em class="fas fa-undo"></em> Reset</button>
             </div>
-            <button class="btn btn-md btn-block btn-primary" form="form-login" type="submit"><em class="fas fa-sign-in-alt"></em> Login</button>
+
+            <div class="text-center dont-have">Ingat Password Anda? <a class="remember-link" href="<?php echo site_url('auth') ?>">Login</a></div>
+
         </div>
     </div>
-
 </form>
 
 <script src="<?php echo base_url('assets/js/jquery.min.js'); ?>"></script>
 
 <script>
     $(document).ready(function() {
-
-        $(function() {
-            if (localStorage.chkbx && localStorage.chkbx != '') {
-                $('#remember-me').attr('checked', 'checked');
-                $('#email').val(localStorage.usrname);
-                $('#password').val(localStorage.pass);
-            } else {
-                $('#remember-me').removeAttr('checked');
-                $('#email').val('');
-                $('#password').val('');
-            }
-
-            $('#remember-me').click(function() {
-
-                if ($('#remember-me').is(':checked')) {
-                    localStorage.usrname = $('#email').val();
-                    localStorage.pass = $('#password').val();
-                    localStorage.chkbx = $('#remember-me').val();
-                } else {
-                    localStorage.usrname = '';
-                    localStorage.pass = '';
-                    localStorage.chkbx = '';
-                }
-            });
-
-        });
 
         document.addEventListener("contextmenu", function(e) {
             e.preventDefault();
@@ -158,32 +109,13 @@
         Pace.on("done", function() {
             $('#page_overlay').delay(300).fadeOut(600);
 
-            $(".g-recaptcha-response").attr('form', 'form-login')
+            $(".g-recaptcha-response").attr('form', 'form-forgot')
         });
 
         $('#password').attr('pass-shown', 'false')
 
-        // Show hide password
-        $('.icon-eyes').on('click', function() {
-            if ($('#password').attr('pass-shown') == 'false') {
-                $('#password').removeAttr('type');
-                $('#password').attr('type', 'text');
-                $('#password').removeAttr('pass-shown');
-                $('#password').attr('pass-shown', 'true');
-                $(this).removeClass('fa-eye');
-                $(this).addClass('fa-eye-slash');
-            } else {
-                $('#password').removeAttr('type');
-                $('#password').attr('type', 'password');
-                $('#password').removeAttr('pass-shown');
-                $('#password').attr('pass-shown', 'false');
-                $(this).removeClass('fa-eye-slash');
-                $(this).addClass('fa-eye');
-            }
-        });
-
-        $("#form-login").attr('action', '<?php echo base_url() . 'auth/login' ?>')
-        $("#form-login").submit(function(e) {
+        $("#form-forgot").attr('action', '<?php echo base_url() . 'send/forgot-password' ?>')
+        $("#form-forgot").submit(function(e) {
             e.preventDefault()
 
             var post_url = $(this).attr("action");
@@ -225,7 +157,7 @@
                     } else {
                         var snd = new Audio('/assets/sound/failed.mp3');
                         snd.onended = function() {
-                            $("button[type=submit]").removeAttr('disabled').html(`<em class="fas fa-sign-in-alt"></em> Login`);
+                            $("button[type=submit]").removeAttr('disabled').html(`<em class="fas fa-undo"></em> Reset`);
                         }
                         snd.play();
                         toastr.warning(response.mess, 'Peringatan', {
@@ -240,7 +172,7 @@
                 error: function() {
                     var snd = new Audio('/assets/sound/failed.mp3');
                     snd.onended = function() {
-                        $("button[type=submit]").removeAttr('disabled').html(`<em class="fas fa-sign-in-alt"></em> Login`);
+                        $("button[type=submit]").removeAttr('disabled').html(`<em class="fas fa-undo"></em> Reset`);
                     }
                     snd.play();
                     toastr.error('Kesalahan system!', 'Error', {

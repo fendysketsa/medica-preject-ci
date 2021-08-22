@@ -25,11 +25,57 @@ class Auth extends MY_Controller
 		$this->render_login('login', $data);
 	}
 
+	public function forgot()
+	{
+		if ($this->session->userdata('authenticated'))
+			redirect('auth');
+
+		$data = [
+			'title' => 'Apotek Bersama | Forgot Password',
+			'captcha' => $this->recaptcha->getWidget(),
+			'script_captcha' => $this->recaptcha->getScriptTag(),
+		];
+		$this->render_forgot('forgot', $data);
+	}
+
+	public function sendResetPassword()
+	{
+		$this->dataPost();
+
+		$username = $this->input->post('email', TRUE);
+
+		$user = $this->UserModel->get($username);
+
+		$mess = null;
+
+		if (empty($user)) {
+			$mess['code'] = 500;
+			$mess['mess'] = 'Identitas tidak dikenal!';
+		} else {
+
+			$recaptcha = $this->input->post('g-recaptcha-response', TRUE);
+			$response = $this->recaptcha->verifyResponse($recaptcha);
+
+			if (!$recaptcha) {
+				$mess['code'] = 500;
+				$mess['mess'] = 'Recaptcha wajib diisikan!';
+			} else if (!isset($response['success']) || $response['success'] <> true) {
+				$mess['code'] = 500;
+				$mess['mess'] = 'Verifikasi recaptcha salah!';
+			} else {
+
+				//Proses kirim password ke email
+			}
+		}
+
+		echo json_encode($mess, true);
+	}
+
 	public function login()
 	{
 		$this->dataPost();
 
-		$username = $this->input->post('username', TRUE);
+		$username = $this->input->post('email', TRUE);
 		$password = $this->input->post('password', TRUE);
 
 		$user = $this->UserModel->get($username);

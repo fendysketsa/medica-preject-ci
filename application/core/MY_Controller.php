@@ -13,7 +13,7 @@ class MY_Controller extends CI_Controller
 
     public function authenticated()
     {
-        if ($this->uri->segment(1) != 'auth' && $this->uri->segment(1) != '') {
+        if ($this->uri->segment(1) != 'auth' && ($this->uri->segment(1) != 'send' && $this->uri->segment(2) != 'forgot-password') && $this->uri->segment(1) != 'forgot-password' && $this->uri->segment(1) != '') {
             if (!$this->session->userdata('authenticated'))
                 redirect('auth');
         }
@@ -24,6 +24,13 @@ class MY_Controller extends CI_Controller
         $data['contentnya'] = $this->load->view($content, $data, TRUE);
 
         $this->load->view('template/login/index', $data);
+    }
+
+    public function render_forgot($content, $data = NULL)
+    {
+        $data['contentnya'] = $this->load->view($content, $data, TRUE);
+
+        $this->load->view('template/forgot/index', $data);
     }
 
     public function render_backend($content, $data = NULL)
@@ -39,10 +46,5 @@ class MY_Controller extends CI_Controller
         if ($this->input->method() == 'get') {
             return show_404();
         }
-    }
-
-    public function timerUE()
-    {
-        return $this->db->get_where('timer', array('l_param' => 'UE'))->row_array();
     }
 }
