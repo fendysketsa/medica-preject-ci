@@ -127,6 +127,8 @@ class Inline
                 return self::dumpNull($flags);
             case $value instanceof \DateTimeInterface:
                 return $value->format('c');
+            case $value instanceof \UnitEnum:
+                return sprintf('!php/const %s::%s', \get_class($value), $value->name);
             case \is_object($value):
                 if ($value instanceof TaggedValue) {
                     return '!'.$value->getTag().' '.self::dump($value->getValue(), $flags);
@@ -159,9 +161,9 @@ class Inline
                 return 'true';
             case false === $value:
                 return 'false';
-            case ctype_digit($value):
-                return \is_string($value) ? "'$value'" : (int) $value;
-            case is_numeric($value) && false === strpos($value, "\f") && false === strpos($value, "\n") && false === strpos($value, "\r") && false === strpos($value, "\t") && false === strpos($value, "\v"):
+            case \is_int($value):
+                return $value;
+            case is_numeric($value) && false === strpbrk($value, "\f\n\r\t\v"):
                 $locale = setlocale(\LC_NUMERIC, 0);
                 if (false !== $locale) {
                     setlocale(\LC_NUMERIC, 'C');
@@ -674,17 +676,22 @@ class Inline
                     case Parser::preg_match('/^(-|\+)?[0-9][0-9_]*(\.[0-9_]+)?$/', $scalar):
                         return (float) str_replace('_', '', $scalar);
                     case Parser::preg_match(self::getTimestampRegex(), $scalar):
+                        // When no timezone is provided in the parsed date, YAML spec says we must assume UTC.
+                        $time = new \DateTime($scalar, new \DateTimeZone('UTC'));
+
                         if (Yaml::PARSE_DATETIME & $flags) {
-                            // When no timezone is provided in the parsed date, YAML spec says we must assume UTC.
-                            return new \DateTime($scalar, new \DateTimeZone('UTC'));
+                            return $time;
                         }
 
-                        $timeZone = date_default_timezone_get();
-                        date_default_timezone_set('UTC');
-                        $time = strtotime($scalar);
-                        date_default_timezone_set($timeZone);
+                        try {
+                            if (false !== $scalar = $time->getTimestamp()) {
+                                return $scalar;
+                            }
+                        } catch (\ValueError $e) {
+                            // no-op
+                        }
 
-                        return $time;
+                        return $time->format('U');
                 }
         }
 
@@ -704,7 +711,7 @@ class Inline
         $nextOffset += strspn($value, ' ', $nextOffset);
 
         if ('' === $tag && (!isset($value[$nextOffset]) || \in_array($value[$nextOffset], [']', '}', ','], true))) {
-            throw new ParseException(sprintf('Using the unquoted scalar value "!" is not supported. You must quote it.', $value), self::$parsedLineNumber + 1, $value, self::$parsedFilename);
+            throw new ParseException('Using the unquoted scalar value "!" is not supported. You must quote it.', self::$parsedLineNumber + 1, $value, self::$parsedFilename);
         }
 
         // Is followed by a scalar and is a built-in tag
