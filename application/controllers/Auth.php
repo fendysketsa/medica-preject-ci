@@ -18,7 +18,7 @@ class Auth extends MY_Controller
 			redirect('page/home');
 
 		$data = [
-			'title' => 'AHASS JATENG | Login',
+			'title' => 'Apotek Bersama | Login',
 			'captcha' => $this->recaptcha->getWidget(),
 			'script_captcha' => $this->recaptcha->getScriptTag(),
 		];

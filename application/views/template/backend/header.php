@@ -25,7 +25,7 @@
         <a class="navbar-brand" href="<?php echo base_url('page/home'); ?>">
             <img src="<?php echo base_url('assets/img/logo.png') ?>" alt="">
             <span>
-                AHASS JATENG
+                Apotek Bersama
             </span>
         </a>
     </div>

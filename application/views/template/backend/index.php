@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>AHASS JATENG | <?php echo $title; ?></title>
+    <title>Apotek Bersama | <?php echo $title; ?></title>
 
     <link href="<?php echo base_url('assets/css/select2/select2.min.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>" rel="stylesheet">
