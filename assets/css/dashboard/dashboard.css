@@ -1,0 +1,86 @@
+
+.float-left {
+    float: left!important;
+}
+
+.float-right {
+    float: right!important;
+}
+
+.col-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+.m-0 {
+    margin: 0!important;
+}
+
+.mb-3, .my-3 {
+    margin-bottom: 1rem!important;
+}
+
+.mt-4, .my-4 {
+    margin-top: 1.5rem!important;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #e6e6e6;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    padding: 1.25rem;
+}
+
+.card-title {
+    margin-bottom: .75rem;
+}
+
+.progress {
+    margin-bottom: 0px !important;
+    display: flex;
+    height: 1rem;
+    font-size: .75rem;
+    background-color: #e9ecef;
+    border-radius: .25rem;
+}
+
+.text-muted {
+    color: #6c757d!important;
+}
+
+.m-r-20 {
+    margin-right: 20px!important;
+}
+
+h3.card-title {
+    margin-top: 10px;
+}
+
+h4.card-title {
+    font-weight: 600;
+}
+
+h4.text-muted {
+    font-size:15px;
+}
+
+.close {
+    font-size: 27px;
+    color: #fff;
+    font-weight: bold;
+}
