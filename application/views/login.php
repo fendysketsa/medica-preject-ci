@@ -30,6 +30,7 @@
     .icon-eyes {
         z-index: 9;
         margin: 1px;
+        margin-right: 10px !important;
         color: #999;
     }
 
@@ -104,7 +105,24 @@
 <script>
     $(document).ready(function() {
 
+        cekPassIsNull('')
+
+        function cekPassIsNull(isNullPass) {
+
+            if (!isNullPass) {
+                $(".icon-eyes").hide()
+            } else {
+                $(".icon-eyes").show()
+            }
+        }
+
         $(function() {
+
+            $("#password").on('input', function() {
+                var isNullPass = $(this).val()
+                cekPassIsNull(isNullPass)
+            });
+
             if (localStorage.chkbx && localStorage.chkbx != '') {
                 $('#remember-me').attr('checked', 'checked');
                 $('#email').val(localStorage.usrname);

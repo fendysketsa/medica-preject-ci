@@ -54,8 +54,7 @@
             <h2><em class="glyphicon glyphicon-signal"></em> Dashboard</h2>
             <hr>
             <div class="card">
-                
+                Jancuk
             </div>
         </div>
     </div>
-    

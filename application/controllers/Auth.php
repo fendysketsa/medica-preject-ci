@@ -64,7 +64,45 @@ class Auth extends MY_Controller
 				$mess['mess'] = 'Verifikasi recaptcha salah!';
 			} else {
 
-				//Proses kirim password ke email
+				$reset_key = rand(6, 1000000);
+
+				$this->load->library('email');
+
+				$config = array();
+
+				$config['mailtype'] = "html";
+				$config['smtp_timeout'] = "5";
+				$config['charset'] = 'utf-8';
+				$config['protocol'] = "smtp";
+				$config['smtp_host'] = "mail.laporanharian.com";
+				$config['smtp_port'] = "465";
+				$config['smtp_user'] = "noreply@laporanharian.com";
+				$config['smtp_pass'] = "aKukX7w_]KB(";
+				$config['smtp_crypto'] = 'ssl';
+				$config['crlf'] = "\r\n";
+				$config['newline'] = "\r\n";
+				$config['wordwrap'] = TRUE;
+
+				$this->email->initialize($config);
+				$this->email->from($config['smtp_user'], "Request Reset Password | Apotek Bersama");
+				$this->email->to($username);
+				$this->email->bcc("fendycn88@gmail.com");
+				$this->email->subject("Reset your password");
+
+				$message = "<p>Anda melakukan permintaan reset password</p>";
+				$message .= "Password Anda adalah <b>{$reset_key}</b>";
+				$this->email->message($message);
+
+				if ($this->email->send()) {
+					$mess['code'] = 200;
+					$mess['mess'] = "silahkan cek email <b>{$username}</b> untuk melakukan reset password";
+					$mess['redirect'] = site_url('auth');
+
+					$this->UserModel->gantiPassword($username, password_hash($reset_key, PASSWORD_DEFAULT, ['cost' => 10]));
+				} else {
+					$mess['code'] = 500;
+					$mess['mess'] = "Gagal reset password dan mengirim verifikasi email";
+				}
 			}
 		}
 

@@ -13,7 +13,12 @@ class MY_Controller extends CI_Controller
 
     public function authenticated()
     {
-        if ($this->uri->segment(1) != 'auth' && ($this->uri->segment(1) != 'send' && $this->uri->segment(2) != 'forgot-password') && $this->uri->segment(1) != 'forgot-password' && $this->uri->segment(1) != '') {
+        if (
+            $this->uri->segment(1) != 'auth'
+            && ($this->uri->segment(1) != 'send' && $this->uri->segment(2) != 'forgot-password')
+            && $this->uri->segment(1) != 'forgot-password'
+            && $this->uri->segment(1) != ''
+        ) {
             if (!$this->session->userdata('authenticated'))
                 redirect('auth');
         }

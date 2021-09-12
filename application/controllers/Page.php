@@ -33,6 +33,7 @@ class Page extends MY_Controller
 			'menu' => '',
 			'link' => ''
 		];
+		
 		$this->render_backend('home', $data);
 	}
 }
