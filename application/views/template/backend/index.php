@@ -4,9 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <link rel="icon" type="image/png" href="<?php echo base_url('assets/img/logo.png'); ?>">
+    <link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url('assets/img/logo.png'); ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -24,18 +24,13 @@
     <link href="<?php echo base_url('assets/css/offline.min.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/css/offline.language.css'); ?>" rel="stylesheet">
 
+    <link rel="stylesheet" href="<?php echo base_url('assets/plugins/fontawesome/css/fontawesome.min.css'); ?>">
+    <link rel="stylesheet" href="<?php echo base_url('assets/plugins/fontawesome/css/all.min.css '); ?>">
+    <link rel="stylesheet" href="<?php echo base_url('assets/plugins/simple-calendar/simple-calendar.css'); ?>">
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/new/feather.css '); ?>">
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/new/style.css'); ?>">
+
     <style>
-        body {
-            min-height: 500px;
-            padding-top: 70px;
-        }
-
-        @media (min-width:768px) {
-            .container-header {
-                margin: 0px 25px 0px 25px;
-            }
-        }
-
         #page_overlay {
             position: fixed;
             top: 0;
@@ -67,16 +62,22 @@
 
 <body>
     <div id="page_overlay"></div>
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <?php echo $headernya; ?>
-    </nav>
 
-    <div>
-        <?php echo $contentnya; ?>
+    <div class="main-wrapper">
+        <?php echo $partnya['header']; ?>
+        <?php echo $partnya['sidebar']; ?>
+
+        <div class="page-wrapper">
+            <div class="content container-fluid">
+                <?php echo $contentnya; ?>
+            </div>
+        </div>
+
+        <?php echo $partnya['notification']; ?>
     </div>
-    <?php $this->load->view('template/backend/modal/changePassword'); ?>
 </body>
 
+<script src="<?php echo base_url('assets/js/jquery.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/select2/select2.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/bootstrap.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/jquery.datatables.min.js'); ?>"></script>
@@ -97,6 +98,12 @@
 <script src="<?php echo base_url('assets/js/offline.min.js'); ?>"></script>
 
 <script src="https://js.pusher.com/4.4/pusher.min.js"></script>
+
+<!-- JS NEW -->
+
+<script src="<?php echo base_url('assets/js/new/bootstrap.bundle.min.js '); ?>"></script>
+<script src="<?php echo base_url('assets/plugins/slimscroll/jquery.slimscroll.min.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/new/script.js '); ?>"></script>
 
 <script>
     $(document).keydown(function(event) {

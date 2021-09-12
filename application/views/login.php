@@ -268,6 +268,9 @@
                             localStorage.removeItem('sound-welcome')
                         }
                     })
+                },
+                complete: function() {
+                    grecaptcha.reset();
                 }
             });
 

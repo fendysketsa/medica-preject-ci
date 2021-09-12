@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Page extends MY_Controller
+class Admin extends MY_Controller
 {
 	public function __construct()
 	{
@@ -24,16 +24,5 @@ class Page extends MY_Controller
 		];
 
 		$this->render_backend('dashboard', $data);
-	}
-
-	public function home()
-	{
-		$data = [
-			'title' => 'Home - ' . $this->session->userdata('nama'),
-			'menu' => '',
-			'link' => ''
-		];
-		
-		$this->render_backend('home', $data);
 	}
 }

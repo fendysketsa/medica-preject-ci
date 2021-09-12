@@ -15,7 +15,7 @@ class Auth extends MY_Controller
 	public function index()
 	{
 		if ($this->session->userdata('authenticated'))
-			redirect('page/home');
+			redirect('admin/dashboard');
 
 		$data = [
 			'title' => 'Apotek Bersama | Login',
@@ -148,7 +148,7 @@ class Auth extends MY_Controller
 					$this->session->set_userdata($session);
 					$mess['code'] = 200;
 					$mess['mess'] = 'Berhasil login!';
-					$mess['redirect'] = $user->p_level == 'kasir' ? 'mng/unit-entry?show=' . md5($user->p_id . $user->p_username) : 'page/home';
+					$mess['redirect'] = $user->p_level == 'kasir' ? 'mng/unit-entry?show=' . md5($user->p_id . $user->p_username) : 'admin/dashboard';
 				} else {
 					$mess['code'] = 500;
 					$mess['mess'] = 'Identitas tidak dikenal!';

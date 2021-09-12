@@ -1,60 +1,66 @@
-<?php if (!empty($css)) {
-    foreach ($css as $css_) { ?>
-        <link rel="stylesheet" href="<?php echo base_url($css_); ?>">
-<?php }
-} ?>
-
-<style>
-    .bg-red {
-        background-color: #c00000 !important;
-        color: #fff;
-    }
-
-    #chart_pie_compo {
-        margin: 0 auto;
-        display: table;
-        margin-top: 75px;
-    }
-
-    .table-performa {
-        border: 2px solid !important;
-        width: 100%;
-    }
-
-    .table-performa th {
-        font-size: 15px;
-        text-align: center;
-        font-weight: bold;
-    }
-
-    .table-performa td {
-        font-size: 13px;
-        font-weight: bold;
-    }
-
-    .size-15 {
-        font-size: 15px;
-        font-weight: bold;
-    }
-
-    .m-t-2 {
-        margin-top: -5px;
-        margin-bottom: -20px;
-    }
-
-    .m-t-2 h4 {
-        font-size: 15px;
-        font-weight: bold;
-    }
-</style>
-
-<div class="container">
-    <div class="row">
-        <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <h2><em class="glyphicon glyphicon-signal"></em> Dashboard</h2>
-            <hr>
-            <div class="card">
-                Jancuk
+<div class="row">
+    <div class="col-12 col-md-6 col-lg-3 d-flex flex-wrap">
+        <div class="card detail-box1 details-box">
+            <div class="card-body">
+                <div class="dash-contetnt">
+                    <div class="mb-3">
+                        <img src="<?php echo base_url('assets/img/icons/accident.svg'); ?>" alt="" width="26">
+                    </div>
+                    <h4 class="text-white">Total Patients</h4>
+                    <h2 class="text-white">245</h2>
+                    <div class="growth-indicator">
+                        <span class="text-white"><i class="fas fa-angle-double-up mr-1"></i> (14.25%)</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    <div class="col-12 col-md-6 col-lg-3 d-flex flex-wrap">
+        <div class="card detail-box2 details-box">
+            <div class="card-body">
+                <div class="dash-contetnt">
+                    <div class="mb-3">
+                        <img src="<?php echo base_url('assets/img/icons/visits.svg'); ?>" alt="" width="26">
+                    </div>
+                    <h4 class="text-white">Patients Visit</h4>
+                    <h2 class="text-white">137</h2>
+                    <div class="growth-indicator">
+                        <span class="text-white"><i class="fas fa-angle-double-down mr-1"></i> (4.78%)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-lg-3 d-flex flex-wrap">
+        <div class="card detail-box3 details-box">
+            <div class="card-body">
+                <div class="dash-contetnt">
+                    <div class="mb-3">
+                        <img src="<?php echo base_url('assets/img/icons/hospital-bed.svg'); ?>" alt="" width="26">
+                    </div>
+                    <h4 class="text-white">New Admit</h4>
+                    <h2 class="text-white">24</h2>
+                    <div class="growth-indicator">
+                        <span class="text-white"><i class="fas fa-angle-double-up mr-1"></i> (18.32%)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-lg-3 d-flex flex-wrap">
+        <div class="card detail-box4 details-box">
+            <div class="card-body">
+                <div class="dash-contetnt">
+                    <div class="mb-3">
+                        <img src="<?php echo base_url('assets/img/icons/operating.svg'); ?>" alt="" width="26">
+                    </div>
+                    <h4 class="text-white">Operations</h4>
+                    <h2 class="text-white">05</h2>
+                    <div class="growth-indicator">
+                        <span class="text-white"><i class="fas fa-angle-double-down mr-1"></i> (25.14%)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
