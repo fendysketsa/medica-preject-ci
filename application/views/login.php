@@ -77,6 +77,9 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <?php echo $captcha; ?>
+                        <div class="invalid-feedback recaptcha-error">
+                            Please checked recaptcha.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -218,6 +221,10 @@
                 processData: false,
                 beforeSend: function() {
 
+                    if (grecaptcha.getResponse() != '') {
+                        $(".recaptcha-error").hide()
+                    }
+
                     $("button[type=submit]")
                         .attr('disabled', true)
                         .html(`<em class="fas fa-spinner"></em>`);
@@ -244,6 +251,8 @@
                         var snd = new Audio('/assets/sound/failed.mp3');
                         snd.onended = function() {
                             $("button[type=submit]").removeAttr('disabled').html(`<em class="fas fa-sign-in-alt"></em> Login`);
+                            $(".recaptcha-error").show()
+                            $(".g-recaptcha div div iframe").attr('style', 'border:2px solid red')
                         }
                         snd.play();
                         toastr.warning(response.mess, 'Peringatan', {
@@ -259,6 +268,8 @@
                     var snd = new Audio('/assets/sound/failed.mp3');
                     snd.onended = function() {
                         $("button[type=submit]").removeAttr('disabled').html(`<em class="fas fa-sign-in-alt"></em> Login`);
+                        $(".recaptcha-error").show()
+                        $(".g-recaptcha div div iframe").attr('style', 'border:2px solid red')
                     }
                     snd.play();
                     toastr.error('Kesalahan system!', 'Error', {
